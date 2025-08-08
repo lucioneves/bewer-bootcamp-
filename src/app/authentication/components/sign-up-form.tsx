@@ -24,7 +24,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/db/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 const formSchema = z
   .object({
@@ -67,9 +67,9 @@ const SignUpForm = () => {
           routet.push("/");
         },
         onError: (error) => {
-          if (error.error.code == "USER_ALREADY_EXIST") {
+          if (error.error.code === "USER_ALREADY_EXISTS") {
             toast.error("E-mail ja cadastrado.");
-            form.setError("email", {
+            return form.setError("email", {
               message: "E-mail já cadastrado.",
             });
           }

@@ -17,13 +17,12 @@ export const addProductToCart = async (data: AddProductToCartSchema) => {
   if (!session?.user) {
     throw new Error("Unauthorized");
   }
-
   const productVariant = await db.query.productVariantTable.findFirst({
     where: (productVariant, { eq }) =>
       eq(productVariant.id, data.productVariantId),
   });
   if (!productVariant) {
-    throw new Error("Product vriant not found");
+    throw new Error("Product variant not found");
   }
   // Pegar o carrinho
   const cart = await db.query.cartTable.findFirst({
